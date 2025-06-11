@@ -18,21 +18,24 @@ RUN a2enmod rewrite
 WORKDIR /var/www/html
 
 # Create necessary directories with proper permissions
-RUN mkdir -p /var/www/html/app/logs \
-    && mkdir -p /var/www/html/files \
+RUN mkdir -p /var/www/html/movie/app/logs \
+    && mkdir -p /var/www/html/movie/files \
     && chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html \
-    && chmod -R 777 /var/www/html/app/logs \
-    && chmod -R 777 /var/www/html/files
+    && chmod -R 777 /var/www/html/movie/app/logs \
+    && chmod -R 777 /var/www/html/movie/files
 
-# Copy application files
-COPY . /var/www/html/
+# Copy application files to the correct location
+COPY . /var/www/html/movie/
 
-# If there's a nested movie directory, move its contents up
-RUN if [ -d "/var/www/html/movie" ]; then \
-        mv /var/www/html/movie/* /var/www/html/ 2>/dev/null || :; \
-        rm -r /var/www/html/movie; \
+# Move the contents of the nested movie directory if it exists
+RUN if [ -d "/var/www/html/movie/movie" ]; then \
+        mv /var/www/html/movie/movie/* /var/www/html/movie/ 2>/dev/null || :; \
+        rm -r /var/www/html/movie/movie; \
     fi
+
+# Create a symlink to make the app accessible from the root
+RUN ln -s /var/www/html/movie /var/www/html/app
 
 # Configure Apache
 COPY docker/apache-config.conf /etc/apache2/sites-available/000-default.conf
