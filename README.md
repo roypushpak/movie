@@ -104,18 +104,6 @@ This application is configured for deployment on [Render](https://render.com/). 
 - Bootstrap 5 (for frontend)
 - Composer (for dependency management)
 
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## Support
-
-For support, please open an issue in the GitHub repository.
-
 ---
 
-Developed by [Pushpak Roy] | [GitHub](https://github.com/roypushpak)
+Developed by Pushpak Roy | [GitHub](https://github.com/roypushpak)
