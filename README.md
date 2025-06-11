@@ -118,4 +118,4 @@ For support, please open an issue in the GitHub repository.
 
 ---
 
-Developed by [Your Name] | [GitHub](https://github.com/roypushpak)
+Developed by [Pushpak Roy] | [GitHub](https://github.com/roypushpak)
