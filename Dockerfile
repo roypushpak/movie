@@ -17,20 +17,21 @@ RUN a2enmod rewrite
 # Set working directory
 WORKDIR /var/www/html
 
-# Create directory structure and set permissions
-RUN mkdir -p /var/www/html/movie/app/logs \
-    && mkdir -p /var/www/html/movie/files \
+# Create necessary directories with proper permissions
+RUN mkdir -p /var/www/html/app/logs \
+    && mkdir -p /var/www/html/files \
     && chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html \
-    && chmod -R 777 /var/www/html/movie/app/logs \
-    && chmod -R 777 /var/www/html/movie/files
+    && chmod -R 777 /var/www/html/app/logs \
+    && chmod -R 777 /var/www/html/files
 
 # Copy application files
-COPY . /var/www/html/movie/
+COPY . /var/www/html/
 
-# Move files to the correct location if needed
-RUN if [ -d "/var/www/html/movie/movie" ]; then \
-        mv /var/www/html/movie/movie/* /var/www/html/movie/ 2>/dev/null || :; \
+# If there's a nested movie directory, move its contents up
+RUN if [ -d "/var/www/html/movie" ]; then \
+        mv /var/www/html/movie/* /var/www/html/ 2>/dev/null || :; \
+        rm -r /var/www/html/movie; \
     fi
 
 # Configure Apache
