@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: movie-app
+    env: php
+    build:
+      dockerfile: Dockerfile
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: movie-db
+          property: connectionString
+      - key: DB_USER
+        fromDatabase:
+          name: movie-db
+          property: username
+      - key: DB_PASS
+        fromDatabase:
+          name: movie-db
+          property: password
+      - key: DB_DATABASE
+        fromDatabase:
+          name: movie-db
+          property: database
+      - key: DB_PORT
+        value: 3306
+
+databases:
+  - name: movie-db
+    databaseName: movie_db
+    user: movie_user
+    plan: free
