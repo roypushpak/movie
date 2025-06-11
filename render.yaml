@@ -22,10 +22,13 @@ services:
           name: movie-db
           property: database
       - key: DB_PORT
-        value: 3306
+        value: 5432  # PostgreSQL default port
+      - key: DB_DRIVER
+        value: pgsql  # Set database driver to PostgreSQL
 
 databases:
   - name: movie-db
     databaseName: movie_db
     user: movie_user
     plan: free
+    engine: postgres
